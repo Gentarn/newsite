@@ -25,20 +25,26 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* ヘッダー */}
-      <header className="bg-white text-gray-800 px-4 py-6 border-b">
+      <header className="fixed top-0 left-0 w-full bg-white/95 text-gray-800 px-4 py-3 border-b z-50 backdrop-blur-sm">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center">
-            <span className="text-gold font-serif text-3xl mr-2">O.f.</span>
-            <span className="font-serif text-2xl">OPEN FACE LLC</span>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/images/logo.png"
+              alt="OPEN FACE LLC Logo"
+              width={100}
+              height={25}
+              priority
+            />
+            <span className="font-montserrat text-2xl">OPEN FACE LLC</span>
           </div>
           <nav className="hidden md:flex space-x-8">
-            <a href="#services" className="font-serif hover:text-gold transition-colors">
+            <a href="#services" className="font-montserrat hover:text-gold transition-colors">
               OUR SERVICE
             </a>
-            <a href="#about" className="font-serif hover:text-gold transition-colors">
+            <a href="#about" className="font-montserrat hover:text-gold transition-colors">
               ABOUT US
             </a>
-            <a href="#contact" className="font-serif hover:text-gold transition-colors">
+            <a href="#contact" className="font-montserrat hover:text-gold transition-colors">
               CONTACT
             </a>
           </nav>
@@ -46,14 +52,14 @@ export default function Home() {
       </header>
 
       {/* ヒーローセクション */}
-      <section className="relative gradient-bg">
-        <div className="container mx-auto px-4 py-8">
+      <section className="relative gradient-bg pt-[72px]">
+        <div className="container mx-auto px-4 py-4">
           <div className="relative aspect-[16/9] w-full">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/of_hero-0yfKP1DrjRrxJEIZEtWlnhAoFbESmT.png"
+              src="/images/HeroTop.png"
               alt="ソリューションイラスト - ビジネスパーソンと解決策"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: "contain" }}
               quality={100}
               priority
             />
@@ -61,19 +67,20 @@ export default function Home() {
         </div>
         <div className="py-8 bg-white">
           <div className="container mx-auto px-4">
-            <p className="text-2xl text-center font-serif">ビジネス変革のためクラウド価値を最大化するパートナー</p>
+            <p className="text-[32px] text-center font-vollkorn">DXでデータ価値を最大化させるパートナー</p>
           </div>
         </div>
       </section>
 
       {/* What's Open Face セクション */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-serif font-bold text-center mb-12">What&apos;s Open Face</h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-gray-700 leading-relaxed mb-8">
+            <h2 className="text-[18px] font-sans font-bold mb-6">What&apos;s Open Face</h2>
+            <p className="text-gray-700 leading-relaxed mb-12">
               新型コロナの影響により、働き方や業務のあり方が変わってきた今日となりました。これに伴い、「モバイルワーク環境」「クラウドファースト」「モバイルファースト」とお客様お持ちの課題も変革してきました。中小企業においても、この時代に適応を図る動きがありますが、弊社は設立当初から「クラウドインテグレーター」を標榜し、お客様とともに解決の道筋とソリューションを提供してまいりました。
             </p>
+            <h2 className="text-[18px] font-sans font-bold mb-6">私達の強み</h2>
             <p className="text-gray-700 leading-relaxed">
               これまでにさまざま業態の企業、業務系パッケージ導入、およびクラウドソーシングによるコンサルティングのノウハウを活かし、システム開発と業界課題を踏まえたビジネスモデルへの対応力の強化し、最適化とクラウド化を総合的にご提案いたします。
             </p>
@@ -90,11 +97,11 @@ export default function Home() {
       <section id="services" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-serif font-bold text-center mb-16">OUR SERVICES</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <Card className="bg-white shadow-md">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/of_hero-0yfKP1DrjRrxJEIZEtWlnhAoFbESmT.png"
+                  src="/images/BPM.png"
                   alt="業務プロセス改善"
                   width={150}
                   height={150}
@@ -109,7 +116,7 @@ export default function Home() {
             <Card className="bg-white shadow-md">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/of_hero-0yfKP1DrjRrxJEIZEtWlnhAoFbESmT.png"
+                  src="/images/ITKeyPersonMenu.png"
                   alt="ロードマップ/メニュー作成"
                   width={150}
                   height={150}
@@ -122,7 +129,7 @@ export default function Home() {
             <Card className="bg-white shadow-md">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/of_hero-0yfKP1DrjRrxJEIZEtWlnhAoFbESmT.png"
+                  src="/images/CloudMigration.jpeg"
                   alt="クラウド移行サポート"
                   width={150}
                   height={150}
@@ -137,7 +144,7 @@ export default function Home() {
             <Card className="bg-white shadow-md">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/of_hero-0yfKP1DrjRrxJEIZEtWlnhAoFbESmT.png"
+                  src="/images/ITmanage.jpeg"
                   alt="IA対策"
                   width={150}
                   height={150}
