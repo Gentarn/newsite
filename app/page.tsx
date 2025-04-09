@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { Twitter, Linkedin, Facebook, MapPin, Mail, Heart } from "lucide-react"
+import { Twitter as TwitterIcon, X as XIcon, Linkedin, Facebook, MapPin, Mail, Heart } from "lucide-react"
 import { submitContactForm, type FormState } from "./actions"
 import { ThankYouPopup } from "@/components/ui/thank-you-popup"
 
@@ -53,8 +53,8 @@ export default function Home() {
 
       {/* ヒーローセクション */}
       <section className="relative gradient-bg pt-[72px]">
-        <div className="container mx-auto px-4 py-4">
-          <div className="relative aspect-[16/9] w-full">
+        <div className="container mx-auto px-4">
+          <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
             <Image
               src="/images/HeroTop.png"
               alt="ソリューションイラスト - ビジネスパーソンと解決策"
@@ -65,9 +65,9 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="py-8 bg-white">
+        <div className="bg-white w-full">
           <div className="container mx-auto px-4">
-            <p className="text-[32px] text-center font-vollkorn">DXでデータ価値を最大化させるパートナー</p>
+            <p className="text-[32px] text-center font-vollkorn py-8">ビジネス変革でデータ価値を最大化させるパートナー</p>
           </div>
         </div>
       </section>
@@ -98,61 +98,66 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-serif font-bold text-center mb-16">OUR SERVICES</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <Card className="bg-white shadow-md">
+            <Card className="bg-white shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="/images/BPM.png"
+                  src="/images/BPM-p-500.jpeg"
                   alt="業務プロセス改善"
-                  width={150}
-                  height={150}
+                  width={450}
+                  height={450}
                   className="mx-auto mb-6 rounded-full"
                 />
                 <h3 className="font-serif font-bold text-xl mb-4">業務プロセス改善</h3>
-                <p className="text-gray-700">
-                  業務課程の分析・見直しによる改善、ITを活用する分野の選定など、お客様の業務改善をご支援いたします。
+                <p className="text-gray-700 text-left">
+                  手作業やExcelを使った今までの業務、ITを導入すれば効率化できると思っていませんか？
+                  クラウド化、リモートワーク化、データの可視化（=デジタル化）様々な目的を達成する第一歩は自社業務をIT導入に合わせた改善を行うところからです。
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-white shadow-md">
+            <Card className="bg-white shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer">
               <CardContent className="p-6 text-center">
                 <Image
-                  src="/images/ITKeyPersonMenu.png"
-                  alt="ロードマップ/メニュー作成"
-                  width={150}
-                  height={150}
+                  src="/images/LowCode.jpeg"
+                  alt="ローコード/ノーコード開発"
+                  width={450}
+                  height={450}
                   className="mx-auto mb-6 rounded-full"
                 />
-                <h3 className="font-serif font-bold text-xl mb-4">ロードマップ/メニュー作成</h3>
-                <p className="text-gray-700">クラウド化の課題を整理し、段階的な移行計画を立案いたします。</p>
+                <h3 className="font-serif font-bold text-xl mb-4">ローコード/ノーコード開発</h3>
+                <p className="text-gray-700 text-left">
+                  「ノーコード・ローコード開発」とは、プログラミングの知識がなくてもアプリを開発できる手法です。近年では、生成AIと連携することで、誰でも直感的にシステムを構築できる時代へと進化しています。
+                  <br /><br />
+                  当社では、目的やスキルに応じたツール選定から導入・開発・操作支援までをトータルでサポートいたします。
+                </p>
               </CardContent>
             </Card>
-            <Card className="bg-white shadow-md">
+            <Card className="bg-white shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer">
               <CardContent className="p-6 text-center">
                 <Image
                   src="/images/CloudMigration.jpeg"
                   alt="クラウド移行サポート"
-                  width={150}
-                  height={150}
+                  width={450}
+                  height={450}
                   className="mx-auto mb-6 rounded-full"
                 />
                 <h3 className="font-serif font-bold text-xl mb-4">クラウド移行サポート</h3>
-                <p className="text-gray-700">
-                  クラウド移行における課題やリスクを分析し、最適な移行方法をご提案いたします。
+                <p className="text-gray-700 text-left">
+                  クラウド移行におけるハードウェアの移行は始まりに過ぎず、企業のプロセスを実現させるためには、最適なソリューションが必要です。弊社は中立な立場から、業界や業務、企業風土に合わせた最適な提案を行い、お客様をサポートいたします。
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-white shadow-md">
+            <Card className="bg-white shadow-md hover:-translate-y-2 hover:shadow-xl transition-all duration-300 cursor-pointer">
               <CardContent className="p-6 text-center">
                 <Image
                   src="/images/ITmanage.jpeg"
                   alt="IA対策"
-                  width={150}
-                  height={150}
+                  width={450}
+                  height={450}
                   className="mx-auto mb-6 rounded-full"
                 />
-                <h3 className="font-serif font-bold text-xl mb-4">IA対策</h3>
-                <p className="text-gray-700">
-                  情報システムを活用した業務改善やデータ分析による効率化をご支援いたします。
+                <h3 className="font-serif font-bold text-xl mb-4">AI利用サポート</h3>
+                <p className="text-gray-700 text-left">
+                  AIを活用した業務改善やデータ分析による効率化をご支援いたします。
                 </p>
               </CardContent>
             </Card>
@@ -167,7 +172,7 @@ export default function Home() {
           <div className="max-w-sm mx-auto text-center">
             <div className="mb-6">
               <Image
-                src="https://sjc.microlink.io/VuUNXNW99oOeEjkm7iOsBZ8fnIdnDY44eXfs_e9uk7XxghtUYyGrACxz5UUArEzT3aJJ_lIBgOQsmUj2FYD3gA.jpeg"
+                src="/images/Masanori.jpeg"
                 alt="MASANORI TAKEUCHI - Managing Director"
                 width={200}
                 height={200}
@@ -177,10 +182,16 @@ export default function Home() {
             <h3 className="font-serif font-bold text-2xl mb-2">MASANORI TAKEUCHI</h3>
             <p className="text-gray-700 mb-6 font-serif italic">Managing Director</p>
             <div className="flex justify-center space-x-4">
-              <a href="#" className="text-gray-600 hover:text-primary transition-colors">
-                <Twitter className="w-6 h-6" />
+              <a href="https://x.com/matakeuchi" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary transition-colors">
+                <Image
+                  src="/images/twitter.jpg"
+                  alt="Twitter"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
               </a>
-              <a href="#" className="text-gray-600 hover:text-primary transition-colors">
+              <a href="https://www.linkedin.com/in/openfacellc/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary transition-colors">
                 <Linkedin className="w-6 h-6" />
               </a>
             </div>
@@ -218,7 +229,13 @@ export default function Home() {
                   <Facebook className="w-6 h-6" />
                 </a>
                 <a href="#" className="text-white hover:text-gray-200 transition-colors">
-                  <Twitter className="w-6 h-6" />
+                  <Image
+                    src="/images/twitter.jpg"
+                    alt="Twitter"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
                 </a>
                 <a href="#" className="text-white hover:text-gray-200 transition-colors">
                   <Linkedin className="w-6 h-6" />
