@@ -1,27 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { useActionState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Twitter as TwitterIcon, X as XIcon, Linkedin, Facebook, MapPin, Mail, Heart } from "lucide-react"
-import { submitContactForm, type FormState } from "./actions"
-import { ThankYouPopup } from "@/components/ui/thank-you-popup"
-
-const initialState: FormState = {}
+import { ContactForm } from "@/components/ui/contact-form"
 
 export default function Home() {
-  const [state, formAction] = useActionState(submitContactForm, initialState)
-  const [showThankYou, setShowThankYou] = useState(false)
-
-  // フォーム送信成功時にポップアップを表示
-  if (state.success && !showThankYou) {
-    setShowThankYou(true)
-  }
-
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* ヘッダー */}
@@ -249,30 +235,7 @@ export default function Home() {
       {/* コンタクトフォーム */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 max-w-xl">
-          <form action={formAction} className="space-y-8">
-            <div>
-              <Input name="name" placeholder="Name(氏名)" className="w-full border-gray-300 text-gray-800" />
-              {state.errors?.name && <p className="text-red-500 text-sm mt-1">{state.errors.name[0]}</p>}
-            </div>
-            <div>
-              <Input name="email" type="email" placeholder="Email" className="w-full border-gray-300 text-gray-800" />
-              {state.errors?.email && <p className="text-red-500 text-sm mt-1">{state.errors.email[0]}</p>}
-            </div>
-            <div>
-              <Textarea
-                name="message"
-                placeholder="Message（内容をご記入ください）"
-                rows={6}
-                className="w-full border-gray-300 text-gray-800"
-              />
-              {state.errors?.message && <p className="text-red-500 text-sm mt-1">{state.errors.message[0]}</p>}
-            </div>
-            <div className="text-center">
-              <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-12">
-                送信 - Send Message
-              </Button>
-            </div>
-          </form>
+          <ContactForm />
         </div>
       </section>
 
@@ -282,15 +245,6 @@ export default function Home() {
           <p className="text-center text-gray-600">Copyright © 2025 OpenFace LLC All rights reserved</p>
         </div>
       </footer>
-
-      {/* Thank You ポップアップ */}
-      {showThankYou && state.success && (
-        <ThankYouPopup
-          message={state.message || "お問い合わせありがとうございます。メッセージが送信されました。"}
-          onClose={() => setShowThankYou(false)}
-        />
-      )}
     </div>
   )
 }
-

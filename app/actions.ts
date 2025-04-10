@@ -1,66 +1,102 @@
-"use server"
+'use server'
 
-import { z } from "zod"
+import { supabase } from '@/lib/supabase'
 
-// フォームデータのバリデーションスキーマ
-const formSchema = z.object({
-  name: z.string().min(1, { message: "名前を入力してください" }),
-  email: z.string().email({ message: "有効なメールアドレスを入力してください" }),
-  message: z.string().min(1, { message: "メッセージを入力してください" }),
-})
+export interface ContactFormData {
+  name: string
+  email: string
+  message: string
+}
 
-export type FormState = {
-  success?: boolean
+export interface SubmitResult {
+  success: boolean
+  error?: string
+  data?: any
   message?: string
-  errors?: {
-    name?: string[]
-    email?: string[]
-    message?: string[]
+  details?: any
+}
+
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  try {
+    console.log('Verifying reCAPTCHA token:', token)
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+    })
+
+    const data = await response.json()
+    console.log('reCAPTCHA verification response:', data)
+    return data.success
+  } catch (error: any) {
+    console.error('reCAPTCHA verification error:', error);
+    console.error('reCAPTCHA verification error details:', error.message, error.stack);
+    return false
   }
 }
 
-export async function submitContactForm(prevState: FormState, formData: FormData): Promise<FormState> {
-  // フォームデータの検証
-  const validatedFields = formSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    message: formData.get("message"),
-  })
-
-  // バリデーションエラーがある場合
-  if (!validatedFields.success) {
-    return {
-      success: false,
-      message: "フォームの入力内容に問題があります",
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-
-  const { name, email, message } = validatedFields.data
-
+export async function submitContactForm(formData: ContactFormData, recaptchaToken?: string): Promise<SubmitResult> {
+  'use server'
+  
   try {
-    // ここでメール送信のロジックを実装
-    // 実際の環境では、SendGrid、Nodemailer、またはVercelのSendgrid Integrationなどを使用
+    console.log('Received form data:', formData)
+    console.log('Received reCAPTCHA token:', recaptchaToken)
 
-    // メール送信のシミュレーション（実際の実装では置き換える）
-    console.log(`送信先: info@open-face.net`)
-    console.log(`送信者: ${name} (${email})`)
-    console.log(`メッセージ: ${message}`)
+    if (!recaptchaToken) {
+      console.error('No reCAPTCHA token provided')
+      return {
+        success: false,
+        error: 'reCAPTCHA認証が必要です',
+      }
+    }
 
-    // 実際のメール送信処理はここに実装
-    // 例: await sendEmail({ to: 'info@open-face.net', from: email, subject: `お問い合わせ: ${name}`, text: message })
+    // const isValidRecaptcha = await verifyRecaptcha(recaptchaToken)
+    // if (!isValidRecaptcha) {
+    //   console.error('reCAPTCHA verification failed')
+    //   return {
+    //     success: false,
+    //     error: 'reCAPTCHA認証に失敗しました',
+    //   }
+    // }
 
-    // 成功レスポンス
+    console.log('reCAPTCHA verification successful, proceeding with database insert')
+    
+    const { data, error } = await supabase
+      .from('contacts')
+      .insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          created_at: new Date().toISOString()
+        }
+      ])
+      .select('*')
+      .single()
+
+    if (error) {
+      console.error('Supabase error:', error)
+      return {
+        success: false,
+        error: `データベースエラー: ${error.message}`,
+        details: error
+      }
+    }
+
+    console.log('Data inserted successfully:', data)
     return {
       success: true,
-      message: "お問い合わせありがとうございます。メッセージが送信されました。",
+      data,
+      message: 'お問い合わせありがとうございます。'
     }
   } catch (error) {
-    // エラーレスポンス
+    console.error('Unexpected error:', error)
     return {
       success: false,
-      message: "メッセージの送信中にエラーが発生しました。後でもう一度お試しください。",
+      error: '予期せぬエラーが発生しました。',
+      details: error
     }
   }
 }
-
