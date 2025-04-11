@@ -37,4 +37,3 @@ export function ThankYouPopup({ message, onClose }: ThankYouPopupProps) {
     </div>
   )
 }
-
